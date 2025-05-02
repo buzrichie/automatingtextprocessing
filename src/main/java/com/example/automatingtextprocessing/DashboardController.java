@@ -104,6 +104,19 @@ public class DashboardController {
         resultArea.setText(String.join("\n", summary));
     }
 
+    @FXML
+    private void handleFindMatchingLines() {
+        String pattern = regexField.getText();
+        if (pattern == null || pattern.isBlank()) {
+            resultArea.setText("Please enter a valid regex pattern.");
+            return;
+        }
+        Stream<String> lines = inputTextArea.getText().lines();
+        List<String> matchingLines = DataProcessor.findLinesMatching(lines, pattern);
+        resultArea.setText("Matching Lines:\n" + String.join("\n", matchingLines));
+    }
+
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
