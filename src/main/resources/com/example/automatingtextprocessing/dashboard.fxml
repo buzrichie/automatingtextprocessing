@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.automatingtextprocessing.DashboardController"
+            prefHeight="500.0" prefWidth="800.0">
+
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+
+        <!-- File Controls -->
+        <HBox spacing="10">
+            <Button text="Choose File" onAction="#handleChooseFile"/>
+            <Button text="Unselect File" onAction="#handleUnselectFile"/>
+            <Label fx:id="fileNameLabel" text="No file selected"/>
+        </HBox>
+
+        <!-- Input Text Area -->
+        <Label text="Input Text:"/>
+        <TextArea fx:id="inputTextArea" prefRowCount="8" wrapText="true"/>
+
+        <!-- Regex Pattern -->
+        <Label text="Regex Pattern:"/>
+        <TextField fx:id="regexField"/>
+
+        <!-- Replacement Text -->
+        <Label text="Replacement Text:"/>
+        <TextField fx:id="replacementField"/>
+
+        <!-- Action Buttons -->
+        <HBox spacing="10">
+            <Button text="Find Matches" onAction="#handleFindMatches"/>
+            <Button text="Replace Text" onAction="#handleReplaceText"/>
+            <Button text="Save Changes" onAction="#handleSaveFile"/>
+        </HBox>
+        <HBox spacing="10">
+            <Button text="Word Frequency" onAction="#handleWordFrequency"/>
+            <Button text="Summarize Text" onAction="#handleSummarizeText"/>
+            <Button text="Find Matching Lines" onAction="#handleFindMatchingLines"/>
+        </HBox>
+
+        <!-- Output Area -->
+        <Label text="Results:"/>
+        <TextArea fx:id="resultArea" prefRowCount="5" editable="false" wrapText="true"/>
+
+    </VBox>
+</AnchorPane>
