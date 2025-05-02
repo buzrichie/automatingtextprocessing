@@ -60,6 +60,20 @@ public class DashboardController {
             showError("Regex error: " + e.getMessage());
         }
     }
+    @FXML
+    public void handleReplaceText() {
+        String pattern = regexField.getText();
+        String replacement = replacementField.getText();
+        String text = inputTextArea.getText();
+
+        try {
+            String updated = RegexUtil.replaceMatches(pattern, replacement, text);
+            inputTextArea.setText(updated);
+            resultArea.setText("Text replaced successfully.");
+        } catch (Exception e) {
+            showError("Regex error: " + e.getMessage());
+        }
+    }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
