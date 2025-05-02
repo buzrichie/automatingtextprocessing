@@ -48,6 +48,18 @@ public class DashboardController {
         inputTextArea.clear();
     }
 
+    @FXML
+    public void handleFindMatches() {
+        String pattern = regexField.getText();
+        String text = inputTextArea.getText();
+
+        try {
+            List<String> matches = RegexUtil.findMatches(pattern, text);
+            resultArea.setText(String.join("\n", matches));
+        } catch (Exception e) {
+            showError("Regex error: " + e.getMessage());
+        }
+    }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
