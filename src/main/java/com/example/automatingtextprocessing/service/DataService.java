@@ -1,5 +1,8 @@
 package com.example.automatingtextprocessing.service;
 
+import com.example.automatingtextprocessing.exception.DuplicateEntryException;
+import com.example.automatingtextprocessing.exception.EntryNotFoundException;
+import com.example.automatingtextprocessing.exception.InvalidDataException;
 import com.example.automatingtextprocessing.model.Data;
 
 import java.util.ArrayList;
@@ -16,39 +19,60 @@ public class DataService<T> implements DataServiceInterface<T> {
 
     // Create
     @Override
-    public boolean addEntry(T id, String content) throws Exception {
+    public boolean addEntry(T id, String content)
+            throws InvalidDataException, DuplicateEntryException {
 
-        if (content.trim().isEmpty()) throw new Exception("content can no to empty");
-
-        Data<T> entry = new Data<>(id, content);
-        if (dataMap.containsKey(entry.getId())) {
-            return false;
+        if (id == null) {
+            throw new InvalidDataException("ID cannot be null.");
         }
-        dataMap.put(entry.getId(), entry);
+
+        if (content == null || content.trim().isEmpty()) {
+            throw new InvalidDataException("Content cannot be empty.");
+        }
+
+        if (dataMap.containsKey(id)) {
+            throw new DuplicateEntryException("An entry with this ID already exists.");
+        }
+
+        dataMap.put(id, new Data<>(id, content));
         return true;
     }
 
     // Read
     @Override
-    public Data<T> getEntry(T id) {
+    public Data<T> getEntry(T id) throws EntryNotFoundException {
+        if (!dataMap.containsKey(id)) {
+            throw new EntryNotFoundException("No entry found with the given ID.");
+        }
         return dataMap.get(id);
     }
 
     // Update
     @Override
-    public boolean updateEntry(T id, String newContent) {
-        Data<T> entry = dataMap.get(id);
-        if (entry != null) {
-            entry.setContent(newContent);
-            return true;
+    public boolean updateEntry(T id, String newContent)
+            throws EntryNotFoundException, InvalidDataException {
+
+        if (!dataMap.containsKey(id)) {
+            throw new EntryNotFoundException("Cannot update. Entry not found.");
         }
-        return false;
+
+        if (newContent == null || newContent.trim().isEmpty()) {
+            throw new InvalidDataException("New content cannot be empty.");
+        }
+
+        dataMap.get(id).setContent(newContent);
+        return true;
     }
 
     // Delete
     @Override
-    public boolean deleteEntry(T id) {
-        return dataMap.remove(id) != null;
+    public boolean deleteEntry(T id) throws EntryNotFoundException {
+        if (!dataMap.containsKey(id)) {
+            throw new EntryNotFoundException("Cannot delete. Entry not found.");
+        }
+
+        dataMap.remove(id);
+        return true;
     }
 
     // List all
