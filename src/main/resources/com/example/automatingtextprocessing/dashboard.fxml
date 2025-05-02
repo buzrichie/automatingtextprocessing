@@ -15,31 +15,43 @@
             <Button text="Choose File" onAction="#handleChooseFile"/>
             <Button text="Unselect File" onAction="#handleUnselectFile"/>
             <Label fx:id="fileNameLabel" text="No file selected"/>
-        </HBox>
 
-        <!-- Input Text Area -->
-        <Label text="Input Text:"/>
-        <TextArea fx:id="inputTextArea" prefRowCount="8" wrapText="true"/>
-
-        <!-- Regex Pattern -->
-        <Label text="Regex Pattern:"/>
-        <TextField fx:id="regexField"/>
-
-        <!-- Replacement Text -->
-        <Label text="Replacement Text:"/>
-        <TextField fx:id="replacementField"/>
-
-        <!-- Action Buttons -->
-        <HBox spacing="10">
-            <Button text="Find Matches" onAction="#handleFindMatches"/>
-            <Button text="Replace Text" onAction="#handleReplaceText"/>
             <Button text="Save Changes" onAction="#handleSaveFile"/>
         </HBox>
-        <HBox spacing="10">
-            <Button text="Word Frequency" onAction="#handleWordFrequency"/>
-            <Button text="Summarize Text" onAction="#handleSummarizeText"/>
-            <Button text="Find Matching Lines" onAction="#handleFindMatchingLines"/>
+        <HBox spacing="20">
+
+            <!-- Input Text VBox -->
+            <VBox spacing="5">
+                <Label text="Input Text:"/>
+                <TextArea fx:id="inputTextArea" prefRowCount="8" wrapText="true" prefWidth="300"/>
+            </VBox>
+
+            <!-- Regex Pattern VBox -->
+            <VBox spacing="5">
+                <Label text="Regex Pattern:"/>
+                <TextField fx:id="regexField" prefWidth="200"/>
+                <Button text="Find Matches" onAction="#handleFindMatches"/>
+                <Label text="Replacement Text:"/>
+                <TextField fx:id="replacementField" prefWidth="200"/>
+                <Button text="Replace Text" onAction="#handleReplaceText"/>
+            </VBox>
         </HBox>
+        <!-- Action Buttons -->
+        <HBox spacing="10">
+
+        </HBox>
+        <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-radius: 5;">
+
+            <Label text="Analysis:" style="-fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+            <Button text="Word Frequency" onAction="#handleWordFrequency" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+
+            <Button text="Summarize Text" onAction="#handleSummarizeText" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+
+            <Button text="Find Matching Lines" onAction="#handleFindMatchingLines" style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+
+        </HBox>
+
 
         <!-- Output Area -->
         <Label text="Results:"/>
