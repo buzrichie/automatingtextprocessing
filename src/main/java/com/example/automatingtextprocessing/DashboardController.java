@@ -97,6 +97,14 @@ public class DashboardController {
         resultArea.setText(result.toString());
     }
 
+    @FXML
+    private void handleSummarizeText() {
+        Stream<String> lines = inputTextArea.getText().lines();
+        List<String> summary = DataProcessor.summarizeText(lines);
+        resultArea.setText(String.join("\n", summary));
+    }
+
+
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.showAndWait();
