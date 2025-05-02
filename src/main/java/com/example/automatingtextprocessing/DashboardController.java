@@ -74,6 +74,19 @@ public class DashboardController {
             showError("Regex error: " + e.getMessage());
         }
     }
+    @FXML
+    public void handleSaveFile() {
+        if (selectedFile != null) {
+            try {
+                Files.writeString(selectedFile.toPath(), inputTextArea.getText());
+                resultArea.setText("File saved: " + selectedFile.getName());
+            } catch (Exception e) {
+                showError("Error saving file: " + e.getMessage());
+            }
+        } else {
+            showError("No file selected to save.");
+        }
+    }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
