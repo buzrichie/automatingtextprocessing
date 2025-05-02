@@ -88,6 +88,15 @@ public class DashboardController {
         }
     }
 
+    @FXML
+    private void handleWordFrequency() {
+        Stream<String> lines = inputTextArea.getText().lines();
+        Map<String, Long> frequency = DataProcessor.calculateWordFrequency(lines);
+        StringBuilder result = new StringBuilder("Word Frequency:\n");
+        frequency.forEach((word, count) -> result.append(word).append(": ").append(count).append("\n"));
+        resultArea.setText(result.toString());
+    }
+
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.showAndWait();
