@@ -69,7 +69,7 @@ public class DashboardController {
         try {
             String updated = RegexUtil.replaceMatches(pattern, replacement, text);
             inputTextArea.setText(updated);
-            resultArea.setText("Text replaced successfully.");
+            resultArea.setText("Text replaced successfully.\n" + updated);
         } catch (Exception e) {
             showError("Regex error: " + e.getMessage());
         }
@@ -90,6 +90,11 @@ public class DashboardController {
 
     @FXML
     private void handleWordFrequency() {
+
+        if (inputTextArea.getText().isEmpty()){
+            resultArea.setText("Text Area is Empty");
+            return;
+        }
         Stream<String> lines = inputTextArea.getText().lines();
         Map<String, Long> frequency = DataProcessor.calculateWordFrequency(lines);
         StringBuilder result = new StringBuilder("Word Frequency:\n");
@@ -115,7 +120,6 @@ public class DashboardController {
         List<String> matchingLines = DataProcessor.findLinesMatching(lines, pattern);
         resultArea.setText("Matching Lines:\n" + String.join("\n", matchingLines));
     }
-
 
 
     private void showError(String message) {
